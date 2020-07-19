@@ -10,6 +10,7 @@ import { from } from 'rxjs';
 export class ShoppingListService {
   // because getIngredients return only copy
   ingredientsChange = new Subject<Ingredient[]>();
+  startedEditing = new Subject<number>();
 
   private ingredients: Ingredient[] = [
     new Ingredient('Sugar', 2),
@@ -20,6 +21,10 @@ constructor() { }
 
 getIngredients(){
   return this.ingredients.slice();
+}
+
+getIngredient(index: number) {
+  return this.ingredients[index];
 }
 
 addIngredinet(ingredient: Ingredient) {
