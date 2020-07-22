@@ -5,7 +5,7 @@ import { Ingredient } from '../shared/ingredient.model';
 import { from } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShoppingListService {
   // because getIngredients return only copy
@@ -17,29 +17,33 @@ export class ShoppingListService {
     new Ingredient('Chocolate', 2),
   ];
 
-constructor() { }
+  constructor() {}
 
-getIngredients(){
-  return this.ingredients.slice();
-}
+  getIngredients() {
+    return this.ingredients.slice();
+  }
 
-getIngredient(index: number) {
-  return this.ingredients[index];
-}
+  getIngredient(index: number) {
+    return this.ingredients[index];
+  }
 
-addIngredinet(ingredient: Ingredient) {
-  this.ingredients.push(ingredient);
-  this.ingredientsChange.next(this.ingredients.slice());
-}
+  addIngredinet(ingredient: Ingredient) {
+    this.ingredients.push(ingredient);
+    this.ingredientsChange.next(this.ingredients.slice());
+  }
 
-addIngredients(ingredients: Ingredient[]) {
-  this.ingredients.push(...ingredients);
-  this.ingredientsChange.next(this.ingredients.slice());
-}
+  addIngredients(ingredients: Ingredient[]) {
+    this.ingredients.push(...ingredients);
+    this.ingredientsChange.next(this.ingredients.slice());
+  }
 
-updateIngredient(index: number, newIngredient: Ingredient) {
-  this.ingredients[index] = newIngredient;
-  this.ingredientsChange.next(this.ingredients.slice());
-}
+  updateIngredient(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChange.next(this.ingredients.slice());
+  }
 
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1);
+    this.ingredientsChange.next(this.ingredients.slice())
+  }
 }
