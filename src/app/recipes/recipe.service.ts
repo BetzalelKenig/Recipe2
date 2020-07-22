@@ -11,22 +11,28 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Test Recipe 1',
-      'french crepe',
-      'https://p0.pikist.com/photos/832/1006/pancake-crepes-eat-food-crepe-thumbnail.jpg',
-      [new Ingredient('ingredient', 76)]
-    ),
-    new Recipe(
-      'Test Recipe 2',
-      'french crepe',
-      'https://p0.pikist.com/photos/832/1006/pancake-crepes-eat-food-crepe-thumbnail.jpg',
-      [new Ingredient('ingredient', 6), new Ingredient('ingredient', 6)]
-    ),
-  ];
+  private recipes: Recipe[] = [];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Test Recipe 1',
+  //     'french crepe',
+  //     'https://p0.pikist.com/photos/832/1006/pancake-crepes-eat-food-crepe-thumbnail.jpg',
+  //     [new Ingredient('ingredient', 76)]
+  //   ),
+  //   new Recipe(
+  //     'Test Recipe 2',
+  //     'french crepe',
+  //     'https://p0.pikist.com/photos/832/1006/pancake-crepes-eat-food-crepe-thumbnail.jpg',
+  //     [new Ingredient('ingredient', 6), new Ingredient('ingredient', 6)]
+  //   ),
+  // ];
 
   constructor(private slService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
