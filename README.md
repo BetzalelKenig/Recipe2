@@ -1,4 +1,4 @@
-# Recipes2
+# [Recipes2](https://recipe2-8a3fe.web.app)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
 
