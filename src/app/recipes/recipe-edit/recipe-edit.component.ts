@@ -5,7 +5,6 @@ import { Store, On } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-import { RecipeService } from '../recipe.service';
 import * as fromApp from '../../store/app.reducer';
 import * as RecipesActions from '../store/recipe.actions';
 
@@ -23,22 +22,21 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.editMode = params['id'] != null;
+      this.id = +params.id;
+      this.editMode = params.id != null;
       this.initForm();
     });
   }
 
   get controls() {
     // a getter!
-    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+    return ( this.recipeForm.get('ingredients') as FormArray).controls;
   }
 
   onSubmit() {
@@ -81,7 +79,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
-    let recipeIngredients = new FormArray([]);
+    const recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
       // const recipe = this.recipeService.getRecipe(this.id);
@@ -99,8 +97,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           recipeImagePath = recipe.imagePath;
           recipeDescription = recipe.description;
           // check if the current recipe has ingredients
-          if (recipe['ingredients']) {
-            for (let ingredient of recipe.ingredients) {
+          if (recipe.ingredients) {
+            for (const ingredient of recipe.ingredients) {
               recipeIngredients.push(
                 new FormGroup({
                   name: new FormControl(ingredient.name, Validators.required),
@@ -124,6 +122,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.storeSub) this.storeSub.unsubscribe();
+    if (this.storeSub) { this.storeSub.unsubscribe(); }
   }
 }

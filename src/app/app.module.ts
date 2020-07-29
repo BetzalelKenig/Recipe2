@@ -14,12 +14,12 @@ import { SharedModule } from './shared/shared.module';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { environment } from 'src/environments/environment';
-import { RecipeEffects } from './recipes/store/recipe.effects'
+import { RecipeEffects } from './recipes/store/recipe.effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects, RecipeEffects]),
